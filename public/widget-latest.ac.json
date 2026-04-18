@@ -1,0 +1,97 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.5",
+  "speak": "Dernières actualités IA",
+  "body": [
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "Image",
+              "url": "/icons/icon.svg",
+              "width": "20px",
+              "height": "20px"
+            }
+          ],
+          "verticalContentAlignment": "Center"
+        },
+        {
+          "type": "Column",
+          "width": "stretch",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "AI Feed",
+              "weight": "Bolder",
+              "size": "Small",
+              "color": "Accent"
+            }
+          ],
+          "verticalContentAlignment": "Center"
+        },
+        {
+          "type": "Column",
+          "width": "auto",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "${updated_at}",
+              "size": "Small",
+              "color": "Light",
+              "isSubtle": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Container",
+      "$data": "${articles}",
+      "separator": true,
+      "items": [
+        {
+          "type": "ColumnSet",
+          "selectAction": {
+            "type": "Action.OpenUrl",
+            "url": "${url}"
+          },
+          "columns": [
+            {
+              "type": "Column",
+              "width": "stretch",
+              "items": [
+                {
+                  "type": "TextBlock",
+                  "text": "${source.category}",
+                  "size": "Small",
+                  "color": "Accent",
+                  "weight": "Bolder",
+                  "spacing": "None"
+                },
+                {
+                  "type": "TextBlock",
+                  "text": "${title}",
+                  "wrap": true,
+                  "maxLines": 2,
+                  "spacing": "None"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Voir tout",
+      "url": "/feed"
+    }
+  ]
+}

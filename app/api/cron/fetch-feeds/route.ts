@@ -4,13 +4,24 @@ import { fetchFeed } from '@/lib/rss/parser'
 
 export const maxDuration = 60
 
+// Also allow GET for Vercel cron (it uses GET by default)
+export async function GET(req: NextRequest) {
+  return POST(req)
+}
+
 export async function POST(req: NextRequest) {
-  // Allow manual trigger from settings (no strict secret check for MVP)
-  const secret = req.headers.get('x-cron-secret')
   const expectedSecret = process.env.CRON_SECRET
 
-  if (expectedSecret && secret !== expectedSecret && secret !== 'manual') {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  if (expectedSecret) {
+    const xSecret    = req.headers.get('x-cron-secret')
+    const authHeader = req.headers.get('authorization')
+    // Vercel cron sends: Authorization: Bearer <CRON_SECRET>
+    const isVercelCron  = authHeader === `Bearer ${expectedSecret}`
+    const isManualTrigger = xSecret === 'manual' || xSecret === expectedSecret
+
+    if (!isVercelCron && !isManualTrigger) {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
   }
 
   const supabase = await createServiceClient()

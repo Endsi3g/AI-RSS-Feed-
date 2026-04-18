@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   User, Moon, Sun, Monitor, LogOut, ChevronRight,
-  RefreshCw, Rss, Info
+  RefreshCw, Rss, Info, LayoutDashboard
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import Header from '@/components/layout/Header'
@@ -89,10 +89,18 @@ export default function SettingsPage() {
             </button>
             <a
               href="/explore"
-              className="flex items-center gap-3 px-4 py-3 press-scale"
+              className="flex items-center gap-3 px-4 py-3 border-b border-[var(--separator)] press-scale"
             >
               <Rss size={18} className="text-[var(--accent)]" />
               <p className="flex-1 text-[15px] text-[var(--text-primary)]">Gérer mes sources</p>
+              <ChevronRight size={16} className="text-[var(--text-tertiary)]" />
+            </a>
+            <a
+              href="/widget-preview"
+              className="flex items-center gap-3 px-4 py-3 press-scale"
+            >
+              <LayoutDashboard size={18} className="text-[var(--accent)]" />
+              <p className="flex-1 text-[15px] text-[var(--text-primary)]">Widgets</p>
               <ChevronRight size={16} className="text-[var(--text-tertiary)]" />
             </a>
           </div>

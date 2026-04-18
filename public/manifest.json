@@ -21,9 +21,14 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
   ],
-  "screenshots": [],
   "shortcuts": [
     {
       "name": "Feed IA",
@@ -34,6 +39,59 @@
       "name": "Articles sauvegardés",
       "url": "/saved",
       "description": "Voir vos articles sauvegardés"
+    },
+    {
+      "name": "Widget moyen",
+      "url": "/widget?size=medium",
+      "description": "Widget compact 3 articles"
     }
-  ]
+  ],
+  "widgets": [
+    {
+      "name": "Dernières news IA",
+      "short_name": "AI Feed",
+      "description": "Les 5 dernières actualités IA en temps réel",
+      "tag": "latest-news",
+      "template": "widget-latest",
+      "ms_ac_template": "/widget-latest.ac.json",
+      "data": "/api/widget/latest?limit=5",
+      "type": "application/json",
+      "screenshots": [],
+      "icons": [
+        {
+          "src": "/icons/icon.svg",
+          "sizes": "any"
+        }
+      ],
+      "auth": false,
+      "update": 120
+    },
+    {
+      "name": "Top 3 headlines",
+      "short_name": "AI Top 3",
+      "description": "3 titres IA du moment",
+      "tag": "top-headlines",
+      "template": "widget-latest",
+      "ms_ac_template": "/widget-latest.ac.json",
+      "data": "/api/widget/latest?limit=3",
+      "type": "application/json",
+      "icons": [
+        {
+          "src": "/icons/icon.svg",
+          "sizes": "any"
+        }
+      ],
+      "auth": false,
+      "update": 120
+    }
+  ],
+  "share_target": {
+    "action": "/feed",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
 }
